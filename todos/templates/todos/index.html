@@ -1,0 +1,43 @@
+{% extends 'todos/base.html' %}
+
+{% block title %}Your Task Table{% endblock %}
+
+
+{% block nav %}
+    <nav >
+        <a class="nav-button" href="{% url 'create' %}">Добавить запись</a>   
+        <a class="nav-button" href="{% url 'search' %}">Поиск</a>
+    </nav>
+{% endblock %}
+{% block content %}
+    <h2>Дела</h2>
+    <table> 
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Заголовок</th>
+                <th>Описание</th>
+                <th>Завершено</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.complited }}</td>
+                <td class="button-cell">
+                    <a class="nav-button" href="{% url 'update_todo' pk=task.id %}">Изменить</a>
+                </td>
+                <td>
+                    <form method="post" action="{% url 'delete_task' task_id=task.id  %}">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

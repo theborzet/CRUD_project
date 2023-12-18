@@ -1,0 +1,18 @@
+{% extends 'todos/base.html' %}
+
+{% block title %}Обновление записи{% endblock %}
+
+{% block nav %}
+    <nav>
+        <a class="nav-button" href="{% url 'index' %}">На главную</a>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <h2>Обновление записи</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button type="submit">Сохранить</button>
+    </form>
+{% endblock %}
